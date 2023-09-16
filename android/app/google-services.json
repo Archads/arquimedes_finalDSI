@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "782206036500",
+    "firebase_url": "https://projeto3-94be3-default-rtdb.firebaseio.com",
+    "project_id": "projeto3-94be3",
+    "storage_bucket": "projeto3-94be3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782206036500:android:170d67016b795367931501",
+        "android_client_info": {
+          "package_name": "com.app_medbase_2023"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782206036500-npj2erinootk95o4hu0hf56fk21r9v7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdUtGkM7mwrB6ZNluuOIGjZFAzr8Yz4Uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782206036500-npj2erinootk95o4hu0hf56fk21r9v7q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782206036500:android:c67d3ec267d0c928931501",
+        "android_client_info": {
+          "package_name": "com.example.arquimedes_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782206036500-npj2erinootk95o4hu0hf56fk21r9v7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdUtGkM7mwrB6ZNluuOIGjZFAzr8Yz4Uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782206036500-npj2erinootk95o4hu0hf56fk21r9v7q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
