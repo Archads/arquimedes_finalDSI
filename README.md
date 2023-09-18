@@ -19,6 +19,6 @@ Antes de começar, você precisa configurar o projeto localmente:
 2. Naveque até o diretório do projeto: cd arquimedes_final
 3. Instale as dependencias do flutter: flutter pub get 
 4. Inicie o aplicativo: flutter run
-5. Aplicação foi testada primeriamente utilizando um emuldaor no chrome e edge, recomendo que use um desses
+5. Aplicação foi testada utilizando um emulador no chrome e edge, recomendo que use um desses
 
  
