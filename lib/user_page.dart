@@ -6,22 +6,17 @@ import 'main.dart';
 import 'package:intl/intl.dart';
 
 // user_page.dart
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'model/user.dart';
-import 'package:intl/intl.dart';
-
 class UserPage extends StatefulWidget {
   final String? userId;
   final String? userName;
   final int? userAge;
-  final DateTime? userBirthday;
+  final DateTime? userAppointmentDateTime;
 
   UserPage({
     this.userId,
     this.userName,
     this.userAge,
-    this.userBirthday,
+    this.userAppointmentDateTime,
   });
 
   @override
@@ -31,7 +26,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final controllerName = TextEditingController();
   final controllerAge = TextEditingController();
-  final controllerDate = TextEditingController();
+  final controllerDateTime = TextEditingController();
 
   InputDecoration decoration(String label) => InputDecoration(
         labelText: label,
@@ -48,9 +43,9 @@ class _UserPageState extends State<UserPage> {
     if (widget.userAge != null) {
       controllerAge.text = widget.userAge!.toString();
     }
-    if (widget.userBirthday != null) {
-      controllerDate.text =
-          DateFormat('yyyy-MM-dd').format(widget.userBirthday!);
+    if (widget.userAppointmentDateTime != null) {
+      controllerDateTime.text = DateFormat('yyyy-MM-dd HH:mm')
+          .format(widget.userAppointmentDateTime!);
     }
   }
 
@@ -58,49 +53,53 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.userId != null ? 'Edit User' : 'Create User'),
+        title: Text(widget.userId != null
+            ? 'Editar detalhes da consulta'
+            : 'Cadastrar nova consulta'),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: <Widget>[
           TextField(
             controller: controllerName,
-            decoration: decoration('Name'),
+            decoration: decoration('Nome do paciente'),
           ),
           const SizedBox(height: 24),
           TextField(
             controller: controllerAge,
-            decoration: decoration('Age'),
+            decoration: decoration('Código de consulta do paciente'),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 24),
           TextField(
-            controller: controllerDate,
-            decoration: decoration('Birthday'),
+            controller: controllerDateTime,
+            decoration: decoration('Data e Hora da consulta'),
             readOnly: true,
             onTap: () {
-              _selectDate(context);
+              _selectDateTime(context);
             },
           ),
           const SizedBox(height: 32),
           ElevatedButton(
-            child: Text(widget.userId != null ? 'Update' : 'Create'),
+            child: Text(widget.userId != null ? 'Atualizar' : 'Criar'),
             onPressed: () {
               if (widget.userId != null) {
                 final updatedUser = User(
                   id: widget.userId!,
                   name: controllerName.text,
                   age: int.tryParse(controllerAge.text) ?? 0,
-                  birthday:
-                      DateTime.tryParse(controllerDate.text) ?? DateTime.now(),
+                  appointmentDateTime:
+                      DateTime.tryParse(controllerDateTime.text) ??
+                          DateTime.now(),
                 );
                 updateUser(updatedUser);
               } else {
                 final newUser = User(
                   name: controllerName.text,
                   age: int.tryParse(controllerAge.text) ?? 0,
-                  birthday:
-                      DateTime.tryParse(controllerDate.text) ?? DateTime.now(),
+                  appointmentDateTime:
+                      DateTime.tryParse(controllerDateTime.text) ??
+                          DateTime.now(),
                 );
                 createUser(newUser);
               }
@@ -127,7 +126,7 @@ class _UserPageState extends State<UserPage> {
     await docUser.set(json);
   }
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDateTime(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -146,9 +145,25 @@ class _UserPageState extends State<UserPage> {
     );
 
     if (picked != null) {
-      setState(() {
-        controllerDate.text = DateFormat('yyyy-MM-dd').format(picked);
-      });
+      final TimeOfDay? timePicked = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (timePicked != null) {
+        final pickedDateTime = DateTime(
+          picked.year,
+          picked.month,
+          picked.day,
+          timePicked.hour,
+          timePicked.minute,
+        );
+
+        setState(() {
+          controllerDateTime.text =
+              DateFormat('yyyy-MM-dd HH:mm').format(pickedDateTime);
+        });
+      }
     }
   }
 }
